@@ -45,7 +45,7 @@ public class NASA {
         HttpGet request2 = new HttpGet(uri);
         CloseableHttpResponse response2 = httpClient.execute(request2);
         String body = new String(response2.getEntity().getContent().readAllBytes(), StandardCharsets.UTF_8);
-        File saveFile = new File("C:\\Users\\User\\IdeaProjects\\HTTPNASAHW\\src\\tmp");
+        File saveFile = new File("/Users/vlasov/IdeaProjects/NASA/HTTPNASAHW/src/tmp");
         String[] nameFileArr = uri.split("/");
         for (int i = nameFileArr.length -1; i < nameFileArr.length; i++){
             nameFile = nameFileArr[i];
@@ -55,6 +55,7 @@ public class NASA {
         File file = new File(saveFile, nameFile);
         file.createNewFile();
         FileUtils.copyURLToFile(url, file);
+        System.out.println("File \"" + nameFile + "\" from NASA site downloaded");
     }
 }
 
