@@ -1,17 +1,14 @@
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
-
-import java.util.Date;
 
 @Getter
 @Builder
 @ToString
 public class Data {
 
-    public String copyright;
+    private String copyright;
     private String date;
     private String explanation;
     private String hdurl;
@@ -19,7 +16,6 @@ public class Data {
     private String service_version;
     private String title;
     private String url;
-
 
     public Data(
            @JsonProperty("copyright") String copyright,

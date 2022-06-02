@@ -4,7 +4,6 @@
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.Value;
 import org.apache.commons.io.FileUtils;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -13,13 +12,10 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.List;
+
 
 public class NASA {
 
@@ -41,7 +37,7 @@ public class NASA {
         CloseableHttpResponse response = httpClient.execute(request);
         Data data = mapper.readValue(response.getEntity().getContent(), new TypeReference<Data>() {
         });
-        String uri = data.getUrl();
+        String uri = data.getHdurl();
         HttpGet request2 = new HttpGet(uri);
         CloseableHttpResponse response2 = httpClient.execute(request2);
         String body = new String(response2.getEntity().getContent().readAllBytes(), StandardCharsets.UTF_8);
