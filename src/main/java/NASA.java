@@ -15,7 +15,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class NASA {
 
@@ -25,7 +26,8 @@ public class NASA {
     public static void main(String[] args) throws IOException {
 
         CloseableHttpClient httpClient = HttpClientBuilder.create()
-                .setDefaultRequestConfig(RequestConfig.custom()
+                .setDefaultRequestConfig(
+                        RequestConfig.custom()
                         .setConnectTimeout(5000)
                         .setSocketTimeout(30000)
                         .setRedirectsEnabled(false)
@@ -48,10 +50,9 @@ public class NASA {
         }
 
         URL url = new URL(uri);
-        File file = new File(saveFile, nameFile);
-        file.createNewFile();
+        File file = new File(saveFile.getAbsolutePath(),  LocalDate.now() + "_" + nameFile);
         FileUtils.copyURLToFile(url, file);
-        System.out.println("File \"" + nameFile + "\" from NASA site downloaded");
+        System.out.println("File \"" + nameFile + "\" from NASA site downloaded " + LocalDateTime.now());
     }
 }
 
