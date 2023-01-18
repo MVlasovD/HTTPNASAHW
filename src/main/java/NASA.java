@@ -4,6 +4,7 @@
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import data.Data;
 import org.apache.commons.io.FileUtils;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -53,6 +54,10 @@ public class NASA {
         File file = new File(saveFile.getAbsolutePath(),  LocalDate.now() + "_" + nameFile);
         FileUtils.copyURLToFile(url, file);
         System.out.println("File \"" + nameFile + "\" from NASA site downloaded " + LocalDateTime.now());
+
+        String explanation = data.getExplanation();
+        File fileTxt = new File(saveFile.getAbsolutePath(),
+                LocalDate.now() + "_" + nameFile.subSequence(0, nameFile.length() - 4) + ".txt");
+        FileUtils.writeStringToFile(fileTxt, explanation, StandardCharsets.UTF_8);
     }
 }
-
