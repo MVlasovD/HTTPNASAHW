@@ -4,6 +4,7 @@
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import data.Data;
 import org.apache.commons.io.FileUtils;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -21,7 +22,7 @@ import java.time.LocalDateTime;
 public class NASA {
 
     public static ObjectMapper mapper = new ObjectMapper();
-    static String nameFile;
+    static String nameFile = "";
 
     public static void main(String[] args) throws IOException {
 
@@ -35,15 +36,19 @@ public class NASA {
                 .build();
 
         String token = "TB1OlXx6jdlG0fE9B9rn0dZfqwNLuBui632gtmAD";
+
         HttpGet request = new HttpGet("https://api.nasa.gov/planetary/apod?api_key=" + token);
         CloseableHttpResponse response = httpClient.execute(request);
         Data data = mapper.readValue(response.getEntity().getContent(), new TypeReference<Data>() {
         });
+
         String uri = data.getHdurl();
         HttpGet request2 = new HttpGet(uri);
         CloseableHttpResponse response2 = httpClient.execute(request2);
+
         String body = new String(response2.getEntity().getContent().readAllBytes(), StandardCharsets.UTF_8);
         File saveFile = new File("/Users/vlasov/IdeaProjects/NASA/HTTPNASAHW/src/tmp");
+
         String[] nameFileArr = uri.split("/");
         for (int i = nameFileArr.length -1; i < nameFileArr.length; i++){
             nameFile = nameFileArr[i];
@@ -53,6 +58,10 @@ public class NASA {
         File file = new File(saveFile.getAbsolutePath(),  LocalDate.now() + "_" + nameFile);
         FileUtils.copyURLToFile(url, file);
         System.out.println("File \"" + nameFile + "\" from NASA site downloaded " + LocalDateTime.now());
+
+        String explanation = data.getExplanation();
+        File fileTxt = new File(saveFile.getAbsolutePath(),
+                LocalDate.now() + "_" + nameFile.subSequence(0, nameFile.length() - 4) + ".txt");
+        FileUtils.writeStringToFile(fileTxt, explanation, StandardCharsets.UTF_8);
     }
 }
-
