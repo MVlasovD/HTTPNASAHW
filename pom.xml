@@ -7,6 +7,11 @@
     <groupId>net.dunice</groupId>
     <artifactId>HTTPNASAHW</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <developers>
+        <developer>
+            <name>MNV</name>
+        </developer>
+    </developers>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

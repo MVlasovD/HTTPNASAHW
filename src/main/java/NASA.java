@@ -47,7 +47,7 @@ public class NASA {
         CloseableHttpResponse response2 = httpClient.execute(request2);
 
         String body = new String(response2.getEntity().getContent().readAllBytes(), StandardCharsets.UTF_8);
-        File saveFile = new File("/Users/vlasov/IdeaProjects/NASA/HTTPNASAHW/src/tmp");
+        File saveFile = new File("/Users/vlasov/IdeaProjects/NASA/HTTPNASAHW/src/tmp/" + LocalDate.now());
 
         String[] nameFileArr = uri.split("/");
         for (int i = nameFileArr.length -1; i < nameFileArr.length; i++){
